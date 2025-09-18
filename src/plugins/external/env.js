@@ -1,13 +1,11 @@
 const schema = {
   type: "object",
-  required: ["COOKIE_SECRET", "COOKIE_NAME"],
+  required: ["GH_CLIENT_ID", "GH_CLIENT_SECRET"],
   properties: {
     // Security
-    COOKIE_SECRET: {
+    SESSION_SECRET_PATH: {
       type: "string",
-    },
-    COOKIE_NAME: {
-      type: "string",
+      default: "session-secret.key",
     },
     COOKIE_SECURED: {
       type: "boolean",
@@ -16,6 +14,20 @@ const schema = {
     RATE_LIMIT_MAX: {
       type: "number",
       default: 100,
+    },
+
+    // GitHub App credentials
+    GH_CLIENT_ID: {
+      type: "string",
+      minLength: 1,
+    },
+    GH_CLIENT_SECRET: {
+      type: "string",
+      minLength: 1,
+    },
+    GH_OAUTH_CALLBACK: {
+      type: "string",
+      default: "http://localhost:3000/auth/callback",
     },
   },
 }

@@ -1,9 +1,17 @@
 <%- include('parts/hero'); %>
 <section class="cta wa-stack wa-align-items-center">
-  <wa-button href="#" size="large" class="auth wa-shadow">
+<% if (locals.user) { %>
+  <h1 class="wa-heading-xs">Signed in as <%= user.name %></h1>
+  <wa-button href="#" variant="brand" size="large" class="wa-shadow">
+    Verify Eligibility & Register
+    <wa-icon slot="end" name="arrow-right"></wa-icon>
+  </wa-button>
+<% } else { %>
+  <wa-button href="/auth" size="large" class="auth wa-shadow">
     <wa-icon slot="start" family="brands" name="github"></wa-icon>
     Sign in with GitHub
   </wa-button>
+<% } %>
   <div class="benefits wa-cluster wa-gap-2xs">
     <span>Secure authentication</span>
     <span class="dot">•</span>

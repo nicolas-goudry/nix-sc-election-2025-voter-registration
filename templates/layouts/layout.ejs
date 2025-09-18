@@ -52,11 +52,19 @@
             <p>Voter Registration</p>
           </div>
         </div>
+        <% if (locals.user) { %>
+        <wa-tooltip for="sign-out" placement="bottom-end">Signed in as <%= user %></wa-tooltip>
+        <wa-button id="sign-out" href="/auth/signout" size="small" class="auth" variant="neutral" appearance="outlined">
+          <wa-icon slot="start" name="power-off"></wa-icon>
+          <span>Sign out</span>
+        </wa-button>
+        <% } else { %>
         <wa-tooltip for="sign-in" placement="bottom-end">Sign in</wa-tooltip>
-        <wa-button id="sign-in" href="#" size="small" class="auth" variant="neutral" appearance="outlined">
+        <wa-button id="sign-in" href="/auth" size="small" class="auth" variant="neutral" appearance="outlined">
           <wa-icon slot="start" name="right-to-bracket"></wa-icon>
           <span>Sign in</span>
         </wa-button>
+        <% } %>
       </div>
     </header>
     <main class="wa-grid">

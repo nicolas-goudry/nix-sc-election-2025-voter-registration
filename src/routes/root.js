@@ -1,6 +1,7 @@
 export default async function root(fastify) {
-  fastify.get("/", async function (_, reply) {
+  fastify.get("/", async function (request, reply) {
     return reply.viewAsync("home", {
+      user: request.session.get("user"),
       electionsEmail: "mailto:elections@nixos.org",
       periods: {
         registration: "September 14 - October 14, 2025",
