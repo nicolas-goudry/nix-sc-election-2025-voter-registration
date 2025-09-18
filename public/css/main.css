@@ -1,0 +1,409 @@
+@import url("/public/fonts/inter/latin.css");
+@import url("/public/fonts/inter/latin-italic.css");
+
+/* Global styles */
+:root {
+  --wa-font-family-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --wa-font-weight-bolder: 700;
+}
+
+* {
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--wa-color-neutral-on-loud);
+  color: var(--wa-color-neutral-fill-loud);
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+}
+
+main {
+  flex: 1;
+  padding-block: var(--wa-space-xl);
+  padding-inline: var(--wa-space-l);
+}
+
+section {
+  width: 100%;
+}
+
+wa-callout {
+  max-width: 35rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: var(--wa-space-xs);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--wa-color-gray-95);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--wa-color-gray-80);
+  border-radius: var(--wa-space-2xs);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wa-color-gray-85);
+}
+
+/* Content wrapper styles */
+.content-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80rem;
+  width: 100%;
+}
+
+.content-wrapper.wa-stack {
+  align-items: center;
+}
+
+/* Icon styles */
+wa-icon.logo {
+  background-color: var(--wa-color-brand);
+  color: var(--wa-color-surface-default);
+}
+
+wa-icon.round-bg {
+  border-radius: 50%;
+}
+
+wa-icon.round-bg.blue {
+  background: var(--wa-color-blue-90);
+  color: var(--wa-color-blue-50);
+}
+
+wa-icon.round-bg.green {
+  background: var(--wa-color-green-90);
+  color: var(--wa-color-green-50);
+}
+
+wa-icon.round-bg.pink {
+  background: var(--wa-color-pink-90);
+  color: var(--wa-color-pink-50);
+}
+
+wa-icon.round-bg.large {
+  font-size: var(--wa-font-size-2xl);
+  padding: var(--wa-space-2xl);
+}
+
+wa-icon.round-bg.medium {
+  font-size: var(--wa-font-size-l);
+  padding: var(--wa-space-l);
+}
+
+wa-icon.round-bg.small {
+  font-size: var(--wa-font-size-m);
+  padding: var(--wa-space-m);
+}
+
+/* Header styles */
+header {
+  align-items: center;
+  background-color: var(--wa-color-neutral-on-loud);
+  border-bottom: 1px solid var(--wa-color-border-normal);
+  padding-block: var(--wa-space-s);
+  padding-inline: var(--wa-space-m);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+header .content-wrapper,
+header .wa-cluster {
+  flex-wrap: nowrap;
+}
+
+header wa-icon.logo {
+  background-color: var(--wa-color-brand-fill-loud);
+  border-radius: var(--wa-space-xs);
+  color: var(--wa-color-brand-on-loud);
+  font-size: var(--wa-font-size-l);
+  height: var(--wa-space-2xl);
+  width: var(--wa-space-2xl);
+}
+
+header .title {
+  justify-content: space-around;
+}
+
+header .title h1,
+header .title p {
+  white-space: nowrap;
+}
+
+header .title h1 {
+  font-size: var(--wa-font-size-m);
+  font-weight: var(--wa-font-weight-bold);
+}
+
+header .title p {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-xs);
+}
+
+header .auth wa-icon {
+  margin-inline-end: 0;
+}
+
+header .auth span {
+  display: none;
+}
+
+/* Hero section styles */
+.hero {
+  text-align: center;
+}
+
+.hero .title,
+.hero .subtitle {
+  font-size: var(--wa-font-size-4xl);
+  font-weight: var(--wa-font-weight-bolder);
+  line-height: 1;
+}
+
+.hero .subtitle {
+  color: var(--wa-color-brand-fill-loud);
+}
+
+.hero .description {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-l);
+  max-width: 42rem;
+}
+
+/* Call to action styles */
+.cta .benefits {
+  color: var(--wa-color-text-quiet);
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+}
+
+.cta .benefits span {
+  line-height: 1.2;
+}
+
+.cta .benefits .dot {
+  display: none;
+}
+
+/* Timeline section styles */
+.timeline {
+  --min-column-size: 500px;
+  width: 100%;
+}
+
+.timeline wa-card {
+  text-align: center;
+}
+
+.timeline wa-card.current {
+  border-color: var(--wa-color-border-loud);
+  transform: scale(1.025);
+}
+
+.timeline wa-card h1 {
+  margin-block: var(--wa-space-s);
+}
+
+.timeline wa-card p {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-xs);
+  padding-inline: var(--wa-space-l);
+}
+
+.timeline wa-card a {
+  color: var(--wa-color-text-quiet);
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* How it works section styles */
+.works {
+  text-align: center;
+}
+
+.works .wa-grid {
+  --min-column-size: 400px;
+  width: 100%;
+}
+
+.works wa-icon.round-bg.step {
+  background: var(--wa-color-blue-40);
+  color: var(--wa-color-neutral-on-loud);
+}
+
+.works p {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-xs);
+  padding-inline: var(--wa-space-l);
+}
+
+/* Privacy section styles */
+.privacy p {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-s);
+}
+
+/* FAQ section styles */
+.faq .title {
+  text-align: center;
+}
+
+.faq .wa-grid {
+  --min-column-size: 400px;
+}
+
+/* Registration */
+.registration form {
+  width: 100%;
+  max-width: 35rem;
+}
+
+.registration .app-install {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-xs);
+  width: 100%;
+}
+
+.registration .app-install p {
+  text-align: justify;
+}
+
+.registration .app-install wa-button {
+  margin-block-end: var(--wa-space-m);
+}
+
+/* Footer styles */
+footer {
+  border-top: 1px solid var(--wa-color-border-normal);
+  color: var(--wa-color-text-quiet);
+  margin-block-start: var(--wa-space-4xl);
+}
+
+footer .content-wrapper {
+  align-items: center;
+  display: flex;
+  padding-block: var(--wa-space-2xl);
+  padding-inline: var(--wa-space-l);
+}
+
+footer a {
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-s);
+  text-decoration: none;
+  transition: color var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+footer a:hover {
+  color: var(--wa-color-text-normal);
+}
+
+footer .items {
+  flex-direction: column;
+  font-size: var(--wa-font-size-s);
+  gap: var(--wa-space-xs);
+  justify-content: center;
+}
+
+footer .items span,
+footer .note * {
+  line-height: 1.2;
+}
+
+footer .items .dot {
+  display: none;
+}
+
+footer .note {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--wa-font-size-xs);
+  text-align: center;
+}
+
+/* Media overrides */
+@media only screen and (min-width: 576px) {
+  header {
+    padding-inline: var(--wa-space-l);
+  }
+
+  header .auth span {
+    display: initial;
+  }
+
+  header .auth wa-icon {
+    margin-inline-end: var(--wa-space-xs);
+  }
+
+  .cta .benefits {
+    flex-direction: row;
+    gap: var(--wa-space-2xs);
+  }
+
+  .cta .benefits span {
+    line-height: initial;
+  }
+
+  .cta .benefits .dot {
+    display: initial;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  header {
+    padding-inline: var(--wa-space-xl);
+  }
+
+  .timeline {
+    --min-column-size: 275px;
+  }
+
+  .timeline wa-card.current {
+    transform: scale(1.05);
+  }
+
+  .works .wa-grid {
+    --min-column-size: 400px;
+  }
+
+  .registration .app-install {
+    width: 80%;
+  }
+
+  footer .items {
+    flex-direction: row;
+    gap: var(--wa-space-l);
+  }
+
+  footer .items span {
+    line-height: initial;
+  }
+
+  footer .items .dot {
+    display: initial;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .works .wa-grid {
+    --min-column-size: initial;
+  }
+
+  .faq .wa-grid {
+    --min-column-size: 500px;
+  }
+
+  .registration .app-install {
+    width: 60%;
+  }
+}

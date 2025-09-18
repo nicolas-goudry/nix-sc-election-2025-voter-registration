@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="wa-cloak">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="img-src data:" />
+
+    <title>Nix Steering Committee Election Voter Registration</title>
+    <meta
+      name="description"
+      content="Official voter registration system for the Nix Steering Committee Election 2025. Register your email to participate in the democratic process."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nix-election-2025.gdot.fr/" />
+    <meta
+      property="og:title"
+      content="Nix Steering Committee Election 2025 - Voter Registration"
+    />
+    <meta
+      property="og:description"
+      content="Register your email to vote in the Nix Steering Committee Election 2025. Secure authentication via GitHub OAuth."
+    />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#2563eb" />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/public/css/main.css" />
+
+    <!-- Font Awesome -->
+    <link href="/public/vendor/fontawesome/css/fontawesome.css" rel="stylesheet" />
+
+    <!-- Web Awesome -->
+    <link rel="stylesheet" href="/public/vendor/webawesome/styles/webawesome.css" />
+    <script
+      type="module"
+      src="/public/vendor/webawesome/webawesome.loader.js"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <div class="content-wrapper wa-split">
+        <div class="wa-cluster wa-gap-m">
+          <wa-icon class="logo" name="check-to-slot"></wa-icon>
+          <div class="title wa-stack wa-gap-0">
+            <h1>Nix SC Election 2025</h1>
+            <p>Voter Registration</p>
+          </div>
+        </div>
+        <wa-tooltip for="sign-in" placement="bottom-end">Sign in</wa-tooltip>
+        <wa-button id="sign-in" href="#" size="small" class="auth" variant="neutral" appearance="outlined">
+          <wa-icon slot="start" name="right-to-bracket"></wa-icon>
+          <span>Sign in</span>
+        </wa-button>
+      </div>
+    </header>
+    <main class="wa-grid">
+      <div class="content-wrapper wa-stack wa-gap-3xl">
+        <%- body %>
+      </div>
+    </main>
+    <footer>
+      <div class="content-wrapper wa-stack wa-gap-xl">
+        <div class="items wa-cluster">
+          <a
+            href="<%= footerLinks.sourceRepo %>"
+            target="_blank"
+            class="wa-cluster wa-gap-2xs"
+          >
+            <wa-icon family="brands" name="github"></wa-icon>
+            <span>Source Repository</span>
+          </a>
+          <span class="dot">•</span>
+          <a
+            href="<%= footerLinks.electionRepo %>"
+            target="_blank"
+            class="wa-cluster wa-gap-2xs"
+          >
+            <wa-icon family="brands" name="github"></wa-icon>
+            <span>Election Repository</span>
+          </a>
+          <span class="dot">•</span>
+          <a
+            href="<%= footerLinks.discourseAnnouncement %>"
+            target="_blank"
+            class="wa-cluster wa-gap-2xs"
+          >
+            <wa-icon name="bullhorn"></wa-icon>
+            <span>Discourse Announcement</span>
+          </a>
+          <span class="dot">•</span>
+          <a
+            href="<%= footerLinks.githubAnnouncement %>"
+            target="_blank"
+            class="wa-cluster wa-gap-2xs"
+          >
+            <wa-icon name="bullhorn"></wa-icon>
+            <span>GitHub Announcement</span>
+          </a>
+        </div>
+        <div class="note">
+          <span
+            ><strong
+              >This is an unofficial voter registration system for the Nix
+              Steering Committee Election 2025.</strong
+            ></span
+          >
+          <span>Secure authentication via GitHub OAuth.</span>
+          <span>Your data is processed safely and transparently.</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script type="module" src="/public/js/app.js"></script>
+</html>

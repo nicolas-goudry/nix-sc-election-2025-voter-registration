@@ -1,4 +1,11 @@
-export const autoConfig = {}
+export const autoConfig = {
+  contentSecurityPolicy: {
+    directives: {
+      // Allow loading data:image/svg+xml content
+      defaultSrc: ["'self'", "data:"],
+    },
+  },
+}
 
 /**
  * This plugins sets the basic security headers.

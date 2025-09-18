@@ -1,0 +1,180 @@
+<%- include('parts/hero'); %>
+<section class="cta wa-stack wa-align-items-center">
+  <wa-button href="#" size="large" class="auth wa-shadow">
+    <wa-icon slot="start" family="brands" name="github"></wa-icon>
+    Sign in with GitHub
+  </wa-button>
+  <div class="benefits wa-cluster wa-gap-2xs">
+    <span>Secure authentication</span>
+    <span class="dot">•</span>
+    <span>No data stored</span>
+    <span class="dot">•</span>
+    <span>Open source</span>
+  </div>
+</section>
+<section class="timeline wa-grid wa-gap-l">
+  <wa-card class="current">
+    <div class="wa-stack wa-align-items-center wa-gap-0">
+      <wa-icon name="calendar" class="round-bg green medium"></wa-icon>
+      <h1 class="wa-heading-m">Registration Period</h1>
+      <h2 class="wa-heading-xs"><%= periods.registration %></h2>
+      <p>
+        Register your voting email during this period to participate in
+        the election.
+      </p>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-stack wa-align-items-center wa-gap-0">
+      <wa-icon
+        name="person-booth"
+        class="round-bg blue medium"
+      ></wa-icon>
+      <h1 class="wa-heading-m">Voting Period</h1>
+      <h2 class="wa-heading-xs"><%= periods.voting %></h2>
+      <p>
+        Cast your vote to select the steering committee members who will
+        guide the Nix community.
+      </p>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-stack wa-align-items-center wa-gap-0">
+      <wa-icon name="users" class="round-bg pink medium"></wa-icon>
+      <h1 class="wa-heading-m">Eligibility Requirements</h1>
+      <p>
+        Contributors with <strong><%= eligibilityRules.commits %> commits or <%= eligibilityRules.merges %> merge</strong> to
+        NixOS repositories between <%= eligibilityRules.period %>.
+        <br/>
+        <a
+          href="<%= electionsEmail %>"
+          target="_blank"
+          class="wa-cluster wa-gap-2xs"
+        >
+          <wa-icon name="envelope"></wa-icon>
+          <span>Request an exception</span>
+        </a>
+      </p>
+    </div>
+  </wa-card>
+</section>
+<section class="works">
+  <wa-card>
+    <div class="wa-stack wa-align-items-center wa-gap-l">
+      <h1 class="wa-heading-l">How the Registration Process Works</h1>
+      <div class="wa-grid">
+        <div class="wa-stack wa-align-items-center wa-gap-xs">
+          <wa-icon name="1" class="round-bg small step"></wa-icon>
+          <h1 class="wa-heading-s">GitHub Authentication</h1>
+          <p>
+            Sign in with your GitHub account to verify your identity and
+            contributions.
+          </p>
+        </div>
+        <div class="wa-stack wa-align-items-center wa-gap-xs">
+          <wa-icon name="2" class="round-bg small step"></wa-icon>
+          <h1 class="wa-heading-s">Eligibility Check</h1>
+          <p>
+            We automatically verify your contributions against the
+            official eligible voters list.
+          </p>
+        </div>
+        <div class="wa-stack wa-align-items-center wa-gap-xs">
+          <wa-icon name="3" class="round-bg small step"></wa-icon>
+          <h1 class="wa-heading-s">Email Registration</h1>
+          <p>
+            Provide your email address where you'll receive voting
+            instructions.
+          </p>
+        </div>
+        <div class="wa-stack wa-align-items-center wa-gap-xs">
+          <wa-icon name="4" class="round-bg small step"></wa-icon>
+          <h1 class="wa-heading-s">Automated PR</h1>
+          <p>
+            A pull request is automatically created to update the
+            official voter registry.
+          </p>
+        </div>
+      </div>
+    </div>
+  </wa-card>
+</section>
+<section class="privacy">
+  <wa-card>
+    <div class="wa-flank wa-gap-l wa-align-items-start">
+      <wa-icon name="shield" class="round-bg blue medium"></wa-icon>
+      <div class="wa-stack wa-gap-xs">
+        <h1 class="wa-heading-m">Security & Privacy Commitment</h1>
+        <p>
+          <strong>Your privacy matters:</strong> We only access the
+          minimum GitHub permissions necessary to verify your
+          eligibility and create pull requests on your behalf.
+        </p>
+        <p>
+          <strong>Transparent process:</strong> All changes to the voter
+          registry are made through public pull requests that you can
+          review and track.
+        </p>
+        <p>
+          <strong>No data retention:</strong> We don't store your email
+          or personal information. Everything is processed transparently
+          through the GitHub repository.
+        </p>
+      </div>
+    </div>
+  </wa-card>
+</section>
+<section class="faq">
+  <div class="wa-stack">
+    <h1 class="title wa-heading-l">Frequently Asked Questions</h1>
+    <div class="wa-grid">
+      <wa-card>
+        <div class="wa-stack wa-gap-s">
+          <h1 class="wa-heading-s">
+            What if I'm not eligible to vote?
+          </h1>
+          <p>
+            If you're not on the eligible voters list, the system will
+            inform you immediately after authentication. Only
+            contributors who meet the contribution requirements can
+            register.
+          </p>
+        </div>
+      </wa-card>
+      <wa-card>
+        <div class="wa-stack wa-gap-s">
+          <h1 class="wa-heading-s">Can I update my email address?</h1>
+          <p>
+            Yes! If you already have an email registered, you can update
+            it by going through the registration process again. A new
+            pull request will be created with your updated information.
+          </p>
+        </div>
+      </wa-card>
+      <wa-card>
+        <div class="wa-stack wa-gap-s">
+          <h1 class="wa-heading-s">
+            What GitHub permissions do you need?
+          </h1>
+          <p>
+            We only request access to your public profile information
+            and the ability to create repositories and pull requests on
+            your behalf for the registration process.
+          </p>
+        </div>
+      </wa-card>
+      <wa-card>
+        <div class="wa-stack wa-gap-s">
+          <h1 class="wa-heading-s">
+            How do I know my registration was successful?
+          </h1>
+          <p>
+            After registration, you'll receive a direct link to the pull
+            request created on your behalf. You can track its status and
+            see when it gets merged into the official registry.
+          </p>
+        </div>
+      </wa-card>
+    </div>
+  </div>
+</section>
