@@ -7,33 +7,61 @@
     If you feel you should be included and have good reasons to think so, please feel free to <a href="<%= electionsEmail %>">reach out via email</a>.
   </wa-callout>
   <% } else { %>
-  <wa-callout variant="success">
-    <wa-icon slot="icon" name="circle-check"></wa-icon>
-    <strong>Congratulations, you're eligible!</strong><br />
-    <%_ if (locals.eligibility.isRegistered) { _%>
-    It seems you have already registered an email, but you can still update it if you wish to.
+    <%_ if (!locals.isAppInstalled) { _%>
+    <div class="app-install wa-stack wa-align-items-center wa-gap-s">
+      <wa-button href="<%= installApp %>" variant="brand" size="large" class="wa-shadow">
+        Install the GitHub application
+      </wa-button>
+      <p>
+        This application will act on your behalf to register your email in the upstream <a href="<%= footerLinks.electionRepo %>" target="_blank">election repository</a>.
+      </p>
+      <p>
+        For total transparency, here are the actions performed by the application:
+      </p>
+      <ol>
+        <li>Fork the election repository to your account</li>
+        <li>Add your email to the eligible voters CSV file</li>
+        <li>Commit the changes to the CSV file to your fork</li>
+        <li>Open a pull request against the upstream repository</li>
+      </ol>
+      <h2 class="wa-heading-xs">About permissions</h2>
+      <p>
+        To perform all of these actions, the application requires a few set of permissions across all your repositories. This is required for forking the election repository to your account. If you already have forked the repository, you can limit the permissions to your fork. Note however that if the fork already exists on your account, it must use the same name as the upstream repository (eg: <code>sc-election-2025</code>).
+      </p>
+      <h2 class="wa-heading-xs">About the fork source</h2>
+      <p>
+        On a final note, please be aware that the source election repository used for forking to your account is not the official one, since the GitHub application needs permissions on the source repository and the creator of this application, yours truly, doesn't have any permission on the upstream repository. Therefore, you will be forking the <a href="<%= electionForkSourceRepo %>" target="_blank">creator's fork of the upstream election repository</a>, but the final pull request will still target the official repository.
+      </p>
+    </div>
     <%_ } else { _%>
-    Don't panic if you see the field already filled! We used your email registered at GitHub as a suggestion, you can change it if you wish to, or send the form as-is.
-    <%_ } _%>
-  </wa-callout>
-  <form class="input-validation-required wa-stack wa-gap-xs" method="post">
-    <wa-input
-      type="email"
-      name="email"
-      label="Email"
-      <%_ if (locals.eligibility?.email) { _%>
-      value="<%= eligibility.email %>"
-      <%_ } _%>
-      required
-      with-clear
-    ></wa-input>
-    <wa-button type="submit" variant="brand">
+    <wa-callout variant="success">
+      <wa-icon slot="icon" name="circle-check"></wa-icon>
+      <strong>Congratulations, you're eligible!</strong><br />
       <%_ if (locals.eligibility.isRegistered) { _%>
-        Update my email
+      It seems you have already registered an email, but you can still update it if you wish to.
       <%_ } else { _%>
-        Register this email
+      Don't panic if you see the field already filled! We used your email registered at GitHub as a suggestion, you can change it if you wish to, or send the form as-is.
       <%_ } _%>
-    </wa-button>
-  </form>
+    </wa-callout>
+    <form id="register" class="input-validation-required wa-stack wa-gap-xs" method="post">
+      <wa-input
+        type="email"
+        name="email"
+        label="Email"
+        <%_ if (locals.eligibility?.email) { _%>
+        value="<%= eligibility.email %>"
+        <%_ } _%>
+        required
+        with-clear
+      ></wa-input>
+      <wa-button type="submit" variant="brand">
+        <%_ if (locals.eligibility.isRegistered) { _%>
+          Update my email
+        <%_ } else { _%>
+          Register this email
+        <%_ } _%>
+      </wa-button>
+    </form>
+    <%_ } _%>
   <% } %>
 </section>

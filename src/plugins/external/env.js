@@ -1,6 +1,6 @@
 const schema = {
   type: "object",
-  required: ["GH_CLIENT_ID", "GH_CLIENT_SECRET"],
+  required: ["GH_CLIENT_ID", "GH_CLIENT_SECRET", "GH_PRIVATE_KEY"],
   properties: {
     // Security
     SESSION_SECRET_PATH: {
@@ -28,6 +28,9 @@ const schema = {
     GH_OAUTH_CALLBACK: {
       type: "string",
       default: "http://localhost:3000/auth/callback",
+    },
+    GH_PRIVATE_KEY: {
+      type: "string",
     },
   },
 }

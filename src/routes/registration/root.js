@@ -15,9 +15,13 @@ export default async function register(fastify) {
     }
 
     const eligibility = await fastify.getEligibility(request)
+    const isAppInstalled = await fastify.checkAppInstall(request)
 
     return reply.viewAsync("register", {
       eligibility,
+      isAppInstalled,
+      installApp: `https://github.com/apps/nix-sc-election-voter-registration/installations/new/permissions?target_type=User&target_id=${request.session.get("user").id}`,
+      electionForkSourceRepo: "https://github.com/nicolas-goudry/SC-election-2025",
     })
   })
 
@@ -87,5 +91,29 @@ export default async function register(fastify) {
       isEligible: true,
       isRegistered: Boolean(voter.email),
     }
+  })
+
+  fastify.decorate("checkAppInstall", async (request) => {
+    if (!request.session.user.login) {
+      request.log.info("[register/checkAppInstall] No user login in session, abort checking app installation")
+
+      return
+    }
+
+    try {
+      request.log.info(
+        `[register/checkAppInstall] Check if application is installed for user ${request.session.user.login}`,
+      )
+
+      await fastify.octokit.request(`/users/${request.session.user.login}/installation`)
+
+      request.log.info("[register/checkAppInstall] Application is installed")
+
+      return true
+    } catch (error) {
+      request.log.error(error, "[register/checkAppInstall] App installation check failed")
+    }
+
+    return false
   })
 }
