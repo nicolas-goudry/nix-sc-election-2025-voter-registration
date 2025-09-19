@@ -17,19 +17,19 @@ export const options = {
   },
 }
 
-export async function serviceApp(fastify, options) {
+export async function serviceApp(fastify, _options) {
   // This loads all external plugins defined in plugins/external
   // Those should be registered first as application plugins might depend on them
   await fastify.register(fastifyAutoload, {
     dir: path.join(import.meta.dirname, "plugins/external"),
-    options,
+    options: {},
   })
 
   // This loads all application plugins defined in plugins/app
   // Those should be support plugins that are reused through the application
   fastify.register(fastifyAutoload, {
     dir: path.join(import.meta.dirname, "plugins/app"),
-    options,
+    options: {},
   })
 
   // This loads all plugins defined in routes
@@ -37,7 +37,7 @@ export async function serviceApp(fastify, options) {
     dir: path.join(import.meta.dirname, "routes"),
     autoHooks: true,
     cascadeHooks: true,
-    options,
+    options: {},
   })
 
   // This sets the default error handler
