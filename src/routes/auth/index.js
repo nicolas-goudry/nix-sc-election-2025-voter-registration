@@ -5,7 +5,7 @@ export default async function auth(fastify) {
     request.session.set("token", token)
     request.session.set("user", await fastify.getUser(request, token.access_token))
 
-    return reply.redirect("/")
+    return reply.redirect("/registration")
   })
 
   fastify.get("/signout", async function (request, reply) {
