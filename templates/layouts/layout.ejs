@@ -45,13 +45,13 @@
   <body>
     <header>
       <div class="content-wrapper wa-split">
-        <div class="wa-cluster wa-gap-m">
+        <a href="/" class="wa-cluster wa-gap-m">
           <wa-icon class="logo" name="check-to-slot"></wa-icon>
           <div class="title wa-stack wa-gap-0">
             <h1>Nix SC Election 2025</h1>
             <p>Voter Registration</p>
           </div>
-        </div>
+        </a>
         <% if (locals.user) { %>
         <wa-tooltip for="sign-out" placement="bottom-end">Signed in as <%= user.name %></wa-tooltip>
         <wa-button id="sign-out" href="/auth/signout" size="small" class="auth" variant="neutral" appearance="outlined">
