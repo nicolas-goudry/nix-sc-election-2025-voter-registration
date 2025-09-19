@@ -13,34 +13,4 @@ export default async function auth(fastify) {
 
     return reply.redirect("/")
   })
-
-  fastify.decorate("getUser", async (request, accessToken) => {
-    if (!accessToken) {
-      request.log.error("No access token provided, abort requesting user details")
-
-      throw new Error("Something went wrong while authenticating with GitHub")
-    }
-
-    try {
-      request.log.info("Get user details from GitHub API")
-
-      const response = await fastify.axios.github.get("/user", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-
-      request.log.debug(`Got HTTP ${response.status} response from GitHub API`)
-      request.log.debug(response.data, "Response JSON data")
-
-      return {
-        id: response.data.id,
-        name: response.data.login,
-      }
-    } catch (error) {
-      request.log.error(error, "Failed to get user details")
-
-      throw error
-    }
-  })
 }

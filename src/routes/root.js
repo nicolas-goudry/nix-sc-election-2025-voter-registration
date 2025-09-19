@@ -1,9 +1,6 @@
 export default async function root(fastify) {
-  fastify.addHook("preHandler", fastify.validateSession)
-
-  fastify.get("/", async function (request, reply) {
+  fastify.get("/", async function (_, reply) {
     return reply.viewAsync("home", {
-      user: request.session.get("user"),
       electionsEmail: "mailto:elections@nixos.org",
       periods: {
         registration: "September 14 - October 14, 2025",
@@ -19,5 +16,9 @@ export default async function root(fastify) {
 
   fastify.get("/healthz", async function () {
     return { status: "healthy" }
+  })
+
+  fastify.addHook("preHandler", async function (request, reply) {
+    await fastify.validateSession(request, reply)
   })
 }
