@@ -1,4 +1,6 @@
 export default async function root(fastify) {
+  fastify.addHook("preHandler", fastify.validateSession)
+
   fastify.get("/", async function (request, reply) {
     return reply.viewAsync("home", {
       user: request.session.get("user"),
