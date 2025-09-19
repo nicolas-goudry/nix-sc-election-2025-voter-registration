@@ -53,7 +53,7 @@
           </div>
         </div>
         <% if (locals.user) { %>
-        <wa-tooltip for="sign-out" placement="bottom-end">Signed in as <%= user %></wa-tooltip>
+        <wa-tooltip for="sign-out" placement="bottom-end">Signed in as <%= user.name %></wa-tooltip>
         <wa-button id="sign-out" href="/auth/signout" size="small" class="auth" variant="neutral" appearance="outlined">
           <wa-icon slot="start" name="power-off"></wa-icon>
           <span>Sign out</span>
