@@ -63,7 +63,7 @@ export async function serviceApp(fastify, _options) {
       message = error.message
     }
 
-    return reply.view("error", { title: error.type || "Unknown", message })
+    return reply.viewAsync("error", { title: error.type || "Unknown", message })
   })
 
   // This sets the default 404 handler
