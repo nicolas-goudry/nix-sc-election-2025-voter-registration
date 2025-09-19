@@ -57,13 +57,13 @@ export async function serviceApp(fastify, _options) {
 
     reply.code(error.statusCode ?? 500)
 
-    let message = "Internal Server Error"
+    let message = "An internal server error occurred. Head back <a href='/'>home</a>."
 
     if (error.statusCode && error.statusCode < 500) {
       message = error.message
     }
 
-    return { message }
+    return reply.view("error", { title: error.type || "Unknown", message })
   })
 
   // This sets the default 404 handler
