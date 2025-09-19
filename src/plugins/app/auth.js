@@ -66,14 +66,8 @@ export default fp(
         request.session.set("token", newToken)
       }
 
-      let user = request.session.get("user")
-
-      if (!user) {
-        user = await fastify.getUser(request)
-      }
-
       reply.locals = {
-        user,
+        user: request.session.get("user") || (await fastify.getUser(request)),
       }
 
       return true

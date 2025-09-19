@@ -1,7 +1,6 @@
 export default async function root(fastify) {
   fastify.get("/", async function (_, reply) {
     return reply.viewAsync("home", {
-      electionsEmail: "mailto:elections@nixos.org",
       periods: {
         registration: "September 14 - October 14, 2025",
         voting: "October 15 - November 1, 2025",

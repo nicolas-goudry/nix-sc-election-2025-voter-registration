@@ -16,6 +16,7 @@ export const autoConfig = {
       githubAnnouncement: "https://github.com/NixOS/org/issues/163",
       sourceRepo: "https://github.com/nicolas-goudry/nix-sc-election-2025-voter-registration",
     },
+    electionsEmail: "mailto:elections@nixos.org",
   },
 }
 
