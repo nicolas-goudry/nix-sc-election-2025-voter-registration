@@ -93,7 +93,7 @@ function createRegistrationManager (fastify: FastifyInstance) {
         isRegistered: Boolean(voter.email),
       }
     },
-    async isAppInstalled (request: FastifyRequest, reply: FastifyReply) {
+    async isAppInstalled (request: FastifyRequest) {
       const user = request.session.get('user')
 
       if (!user) {

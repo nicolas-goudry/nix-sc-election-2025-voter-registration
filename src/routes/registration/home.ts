@@ -12,7 +12,7 @@ const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) 
     }
 
     const eligibility = await fastify.registrationManager.getEligibility(request, reply)
-    const isAppInstalled = await fastify.registrationManager.isAppInstalled(request, reply)
+    const isAppInstalled = await fastify.registrationManager.isAppInstalled(request)
 
     return reply.viewAsync('register', {
       eligibility,
