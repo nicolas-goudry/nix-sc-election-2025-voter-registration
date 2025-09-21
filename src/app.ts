@@ -1,5 +1,6 @@
 import path from 'node:path'
 import fastifyAutoload from '@fastify/autoload'
+import { HttpErrorCodes } from '@fastify/sensible'
 import { FastifyInstance, FastifyPluginOptions, FastifyServerOptions } from 'fastify'
 import { ErrorViewContext } from './schemas/view-context'
 
@@ -16,16 +17,29 @@ export const options: FastifyServerOptions = {
   },
 }
 
-const ERROR_MESSAGES: Record<number, ErrorViewContext> = {
+type ErrorMessages = {
+  client: ErrorViewContext
+  server: ErrorViewContext
+} & {
+  [code in HttpErrorCodes]?: ErrorViewContext
+}
+
+const ERROR_MESSAGES: ErrorMessages = {
   401: {
     title: "Hold up! You don't have permission to view this page.",
     message: "It looks like you don't have access to this section…<br/>Only authenticated users can proceed further.",
   },
-  500: {
+  client: {
     title: 'Uh oh! Something went wrong.',
+    message: "It looks like you did something unexpected and we couldn't keep up…<br/>Please try again and report an issue if the problem persists.",
+  },
+  server: {
+    title: 'Shoot! We made a mistake.',
     message: "It looks like our system tripped over some wires…<br/>Don't worry — this error is on our side, not yours.",
   },
 }
+
+ERROR_MESSAGES[403] = ERROR_MESSAGES[401]
 
 export async function serviceApp (
   fastify: FastifyInstance,
@@ -74,15 +88,19 @@ export async function serviceApp (
 
     reply.code(error.statusCode ?? 500)
 
-    const errorContext = ERROR_MESSAGES[error.statusCode || 500]
+    const isInternalError = error.statusCode && error.statusCode >= 500
+    const fallbackErrorContext = isInternalError ? ERROR_MESSAGES.server : ERROR_MESSAGES.client
+    let errorContext
 
-    if (error.statusCode && error.statusCode >= 500) {
-      errorContext.title ||= 'Uh oh! Something went wrong.'
-    } else {
-      errorContext.details ||= error.message
+    if (error.statusCode) {
+      errorContext = ERROR_MESSAGES[error.statusCode as HttpErrorCodes]
+
+      if (error.statusCode < 500 && error.message && errorContext) {
+        errorContext.details = error.message
+      }
     }
 
-    return reply.viewAsync<ErrorViewContext>('error', errorContext)
+    return reply.viewAsync<ErrorViewContext>('error', errorContext || fallbackErrorContext)
   })
 
   // An attacker could search for valid URLs if your 404 error handling is not rate limited.
