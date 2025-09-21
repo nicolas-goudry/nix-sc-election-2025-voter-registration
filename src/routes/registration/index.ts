@@ -29,10 +29,6 @@ const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) 
       }),
     },
   }, async function (request, reply) {
-    if (!request.body?.email) {
-      return reply.badRequest('Email is required')
-    }
-
     return 'TODO'
   })
 
