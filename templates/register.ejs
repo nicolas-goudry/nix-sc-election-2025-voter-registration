@@ -54,6 +54,7 @@
         autocomplete="email"
         label="Email"
         <%_ if (locals.eligibility?.email) { _%>
+        defaultValue="<%= eligibility.email %>"
         value="<%= eligibility.email %>"
         <%_ } _%>
         required
@@ -67,6 +68,10 @@
         <%_ } _%>
       </wa-button>
     </form>
+    <wa-dialog label="Error" id="error-dialog" light-dismiss>
+      You can't use the same email as the currently registered one.
+      <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
+    </wa-dialog>
     <%_ } _%>
   <% } %>
 </section>
