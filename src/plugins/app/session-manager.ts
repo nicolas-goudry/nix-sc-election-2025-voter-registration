@@ -8,87 +8,87 @@ declare module 'fastify' {
   }
 }
 
-function checkSessionExpiry (request: FastifyRequest) {
-  request.log.debug('Check session expiration')
+function createSessionManager (fastify: FastifyInstance) {
+  function checkSessionExpiry (request: FastifyRequest) {
+    request.log.debug('Check session expiration')
 
-  const token = request.session.get('token')
-  const tokenExpiry = {
-    isExpired: true,
-    canRefresh: false,
-    expiresIn: {
-      token: -1,
-      refresh: -1,
-    },
-  }
+    const token = request.session.get('token')
+    const tokenExpiry = {
+      isExpired: true,
+      canRefresh: false,
+      expiresIn: {
+        token: -1,
+        refresh: -1,
+      },
+    }
 
-  if (!token) {
-    request.log.warn('No token found in session')
+    if (!token) {
+      request.log.warn('No token found in session')
+
+      return tokenExpiry
+    }
+
+    const now = Number(new Date())
+    const tokenExpiryDate = Number(new Date(token.expires_at))
+    const tokenIsExpired = now >= tokenExpiryDate
+    const tokenIssuedAt = tokenExpiryDate - token.expires_in
+    const refreshTokenExpiryDate = Number(new Date(tokenIssuedAt + token.refresh_token_expires_in))
+    const refreshTokenIsExpired = now >= refreshTokenExpiryDate
+
+    tokenExpiry.isExpired = tokenIsExpired
+    tokenExpiry.canRefresh = !refreshTokenIsExpired
+
+    if (!tokenIsExpired) {
+      tokenExpiry.expiresIn.token = tokenExpiryDate - now
+    }
+
+    if (!refreshTokenIsExpired) {
+      tokenExpiry.expiresIn.refresh = refreshTokenExpiryDate - now
+    }
+
+    request.log.debug(tokenExpiry, 'Session expiration state')
 
     return tokenExpiry
   }
 
-  const now = Number(new Date())
-  const tokenExpiryDate = Number(new Date(token.expires_at))
-  const tokenIsExpired = now >= tokenExpiryDate
-  const tokenIssuedAt = tokenExpiryDate - token.expires_in
-  const refreshTokenExpiryDate = Number(new Date(tokenIssuedAt + token.refresh_token_expires_in))
-  const refreshTokenIsExpired = now >= refreshTokenExpiryDate
+  async function validateSession (request: FastifyRequest) {
+    request.log.debug('Validate session')
 
-  tokenExpiry.isExpired = tokenIsExpired
-  tokenExpiry.canRefresh = !refreshTokenIsExpired
+    const token = request.session.get('token')
 
-  if (!tokenIsExpired) {
-    tokenExpiry.expiresIn.token = tokenExpiryDate - now
+    if (!token) {
+      return false
+    }
+
+    try {
+      const { data } = await fastify.axios.github.post(`/applications/${fastify.config.GH_CLIENT_ID}/token`, {
+        access_token: token.access_token,
+      })
+
+      request.log.debug(data, 'Token validation')
+    } catch (error) {
+      request.log.error(error, 'Failed to validate session token')
+
+      return false
+    }
+
+    return true
   }
 
-  if (!refreshTokenIsExpired) {
-    tokenExpiry.expiresIn.refresh = refreshTokenExpiryDate - now
+  async function refreshSession (request: FastifyRequest) {
+    request.log.debug('Refresh session')
+
+    const token = request.session.get('token')
+
+    if (!token) {
+      return
+    }
+
+    const newToken = await fastify.githubOAuth2.getNewAccessTokenUsingRefreshToken(token, {})
+
+    return newToken.token
   }
 
-  request.log.debug(tokenExpiry, 'Session expiration state')
-
-  return tokenExpiry
-}
-
-async function validateSession (fastify: FastifyInstance, request: FastifyRequest) {
-  request.log.debug('Validate session')
-
-  const token = request.session.get('token')
-
-  if (!token) {
-    return false
-  }
-
-  try {
-    const { data } = await fastify.axios.github.post(`/applications/${fastify.config.GH_CLIENT_ID}/token`, {
-      access_token: token.access_token,
-    })
-
-    request.log.debug(data, 'Token validation')
-  } catch (error) {
-    request.log.error(error, 'Failed to validate session token')
-
-    return false
-  }
-
-  return true
-}
-
-async function refreshSession (fastify: FastifyInstance, request: FastifyRequest) {
-  request.log.debug('Refresh session')
-
-  const token = request.session.get('token')
-
-  if (!token) {
-    return
-  }
-
-  const newToken = await fastify.githubOAuth2.getNewAccessTokenUsingRefreshToken(token, {})
-
-  return newToken.token
-}
-
-function createSessionManager (fastify: FastifyInstance) {
   return {
     async autoSession (request: FastifyRequest, reply: FastifyReply) {
       request.log.info('Automatically check, validate and refresh session')
@@ -109,12 +109,12 @@ function createSessionManager (fastify: FastifyInstance) {
         return false
       }
 
-      const isSessionValid = await validateSession(fastify, request)
+      const isSessionValid = await validateSession(request)
       // Token will expire in less than an hour
       const willExpireSoon = expiresIn.token < 3600000
 
       if (canRefresh && (isExpired || willExpireSoon || !isSessionValid)) {
-        const token = await refreshSession(fastify, request)
+        const token = await refreshSession(request)
 
         if (!token) {
           request.session.regenerate()
