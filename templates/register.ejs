@@ -9,6 +9,10 @@
   <% } else { %>
     <%_ if (!locals.isAppInstalled) { _%>
     <div class="app-install wa-stack wa-align-items-center wa-gap-s">
+      <wa-callout variant="warning">
+        <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
+        <strong>The GitHub application is required to proceed further.</strong><br />
+      </wa-callout>
       <wa-button href="<%= installApp %>" variant="brand" size="large" class="wa-shadow">
         Install the GitHub application
       </wa-button>
@@ -30,7 +34,7 @@
       </p>
       <h2 class="wa-heading-xs">About the fork source</h2>
       <p>
-        On a final note, please be aware that the source election repository used for forking to your account is not the official one, since the GitHub application needs permissions on the source repository and the creator of this application, yours truly, doesn't have any permission on the upstream repository. Therefore, you will be forking the <a href="<%= electionForkSourceRepo %>" target="_blank">creator's fork of the upstream election repository</a>, but the final pull request will still target the official repository.
+        Please be aware that the source election repository used for forking to your account is not the official one. This is because the GitHub application needs permissions on the source repository, and the creator of this application, yours truly, doesn't have any permissions on the upstream repository. Therefore, you will be forking the <a href="<%= electionForkSourceRepo %>" target="_blank">creator's fork of the upstream election repository</a>, but the final pull request will still target the official repository.
       </p>
     </div>
     <%_ } else { _%>
