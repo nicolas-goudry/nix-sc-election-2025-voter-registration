@@ -5,7 +5,7 @@ import papa from 'papaparse'
 
 declare module 'fastify' {
   interface FastifyInstance {
-    registrationManager: ReturnType<typeof createRegistrationManager>;
+    registration: ReturnType<typeof createRegistrationManager>;
   }
 }
 
@@ -120,5 +120,5 @@ function createRegistrationManager (fastify: FastifyInstance) {
 }
 
 export default fp(async function (fastify) {
-  fastify.decorate('registrationManager', createRegistrationManager(fastify))
+  fastify.decorate('registration', createRegistrationManager(fastify))
 })

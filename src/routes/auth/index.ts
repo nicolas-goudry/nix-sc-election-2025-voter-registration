@@ -42,7 +42,7 @@ const plugin: FastifyPluginAsyncTypebox = async function auth (fastify) {
 
     request.session.set('user', user)
 
-    if (!(await this.registrationManager.isAppInstalled(request))) {
+    if (!(await fastify.registration.isAppInstalled(request))) {
       return reply.redirect(`${fastify.config.GH_APP_INSTALL}&target_id=${user.id}`)
     }
 

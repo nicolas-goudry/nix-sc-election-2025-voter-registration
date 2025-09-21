@@ -1,4 +1,4 @@
-import { UserEligibility } from '../plugins/app/registration-manager'
+import { UserEligibility } from '../plugins/app/registration/registration-manager'
 
 export interface HomeViewContext {
   periods: {
