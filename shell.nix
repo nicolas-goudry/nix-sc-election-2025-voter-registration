@@ -4,7 +4,7 @@
 
 pkgs.mkShellNoCC {
   nativeBuildInputs = with pkgs; [
-    nodejs_20
+    nodejs_24
   ];
 
   shellHook = ''
@@ -13,7 +13,5 @@ pkgs.mkShellNoCC {
       -type f \
       -name '*.sh' \
       -exec bash -c 'ln -sf "$PWD/$1" ".git/hooks/$(basename "$1" .sh)"' _ {} \;
-
-    npm ci
   '';
 }

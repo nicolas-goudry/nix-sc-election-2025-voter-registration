@@ -1,7 +1,7 @@
 <%- include('parts/hero'); %>
 <section class="cta wa-stack wa-align-items-center">
 <% if (locals.user) { %>
-  <h1 class="wa-heading-xs">Signed in as <%= user.name %></h1>
+  <h1 class="wa-heading-xs">Signed in as <%= user.username %></h1>
   <wa-button href="/registration" variant="brand" size="large" class="wa-shadow">
     Verify Eligibility & Register
     <wa-icon slot="end" name="arrow-right"></wa-icon>
@@ -75,15 +75,14 @@
           <wa-icon name="1" class="round-bg small step"></wa-icon>
           <h1 class="wa-heading-s">GitHub Authentication</h1>
           <p>
-            Sign in with your GitHub account to verify your identity and
-            contributions.
+            Sign in with your GitHub account to verify your identity.
           </p>
         </div>
         <div class="wa-stack wa-align-items-center wa-gap-xs">
           <wa-icon name="2" class="round-bg small step"></wa-icon>
           <h1 class="wa-heading-s">Eligibility Check</h1>
           <p>
-            We automatically verify your contributions against the
+            We automatically verify your eligibility against the
             official eligible voters list.
           </p>
         </div>
@@ -116,7 +115,7 @@
         <p>
           <strong>Your privacy matters:</strong> We only access the
           minimum GitHub permissions necessary to verify your
-          eligibility and create pull requests on your behalf.
+          eligibility and update the voters registry on your behalf.
         </p>
         <p>
           <strong>Transparent process:</strong> All changes to the voter
@@ -125,8 +124,9 @@
         </p>
         <p>
           <strong>No data retention:</strong> We don't store your email
-          or personal information. Everything is processed transparently
-          through the GitHub repository.
+          or personal information anywhere else than in a cookie.
+          Everything else is processed transparently through the GitHub
+          repository.
         </p>
       </div>
     </div>
@@ -166,8 +166,8 @@
           </h1>
           <p>
             We only request access to your public profile information
-            and the ability to create repositories and pull requests on
-            your behalf for the registration process.
+            and the ability to create repositories, write code and open
+            pull requests on your behalf for the registration process.
           </p>
         </div>
       </wa-card>

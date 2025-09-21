@@ -1,8 +1,12 @@
-<wa-callout variant="danger">
-  <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
-  <div class="wa-stack wa-gap-s">
-    <h1 class="wa-heading-s"><%= title %></h1>
-    <span><%- message %>.</span>
-    <a href="/">Go back home.</a>
-  </div>
-</wa-callout>
+<section class="error wa-stack wa-align-items-center">
+  <h1 class="wa-heading-xl"><%= title %></h1>
+  <p><%- message %></p>
+  <wa-button href="/" size="large" variant="neutal">
+    <wa-icon slot="start" name="house"></wa-icon>
+    Back Home
+    <wa-icon slot="end" name="arrow-right"></wa-icon>
+  </wa-button>
+  <% if (locals.enableReport) { %>
+  <a href="<%= footerLinks.sourceRepo %>/issues/new" target="_blank">Report issue</a>
+  <% } %>
+</section>

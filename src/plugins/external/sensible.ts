@@ -5,5 +5,4 @@ export const autoConfig = {}
  *
  * @see {@link https://github.com/fastify/fastify-sensible}
  */
-
-export { default } from "@fastify/sensible"
+export { default } from '@fastify/sensible'

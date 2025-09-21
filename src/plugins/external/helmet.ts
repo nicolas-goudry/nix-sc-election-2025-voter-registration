@@ -2,7 +2,7 @@ export const autoConfig = {
   contentSecurityPolicy: {
     directives: {
       // Allow loading data:image/svg+xml content
-      defaultSrc: ["'self'", "data:"],
+      connectSrc: ["'self'", 'data:'],
     },
   },
 }
@@ -12,5 +12,4 @@ export const autoConfig = {
  *
  * @see {@link https://github.com/fastify/fastify-helmet}
  */
-
-export { default } from "@fastify/helmet"
+export { default } from '@fastify/helmet'
