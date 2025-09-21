@@ -74,14 +74,10 @@ export async function serviceApp (
 
     reply.code(error.statusCode ?? 500)
 
-    const errorContext = {
-      ...ERROR_MESSAGES[error.statusCode || 500],
-      enableReport: false,
-    }
+    const errorContext = ERROR_MESSAGES[error.statusCode || 500]
 
     if (error.statusCode && error.statusCode >= 500) {
       errorContext.title ||= 'Uh oh! Something went wrong.'
-      errorContext.enableReport = true
     } else {
       errorContext.details ||= error.message
     }

@@ -1,12 +1,24 @@
-<section class="error wa-stack wa-align-items-center">
+<section class="error wa-stack wa-align-items-center wa-gap-0">
   <h1 class="wa-heading-xl"><%= title %></h1>
   <p><%- message %></p>
+  <a href="<%= footerLinks.sourceRepo %>/issues/new" target="_blank">Report issue</a>
+  <% if (!locals.actions) { %>
   <wa-button href="/" size="large" variant="neutal">
     <wa-icon slot="start" name="house"></wa-icon>
     Back Home
     <wa-icon slot="end" name="arrow-right"></wa-icon>
   </wa-button>
-  <% if (locals.enableReport) { %>
-  <a href="<%= footerLinks.sourceRepo %>/issues/new" target="_blank">Report issue</a>
+  <% } else { %>
+  <div class="wa-stack actions">
+    <h2 class="wa-heading-m">What next?</h2>
+    <div class="wa-cluster wa-gap-s">
+      <% for (const action of actions) { %>
+      <wa-button href="<%= action.url %>" variant="neutal">
+        <wa-icon slot="start" name="<%= action.icon.name %>" family="<%= action.icon.family || 'classic' %>"></wa-icon>
+        <%= action.text %>
+      </wa-button>
+      <% } %>
+    </div>
+  </div>
   <% } %>
 </section>

@@ -170,8 +170,12 @@ section.error {
   text-align: center;
 }
 
-section.error p {
-  margin-block: var(--wa-space-3xl);
+section.error h1 {
+  margin-block-end: var(--wa-space-3xl);
+}
+
+section.error .actions {
+  margin-block-start: var(--wa-space-3xl);
 }
 
 section.error a,

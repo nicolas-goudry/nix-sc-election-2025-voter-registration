@@ -10,9 +10,18 @@ export interface HomeViewContext {
   },
 }
 
+interface ErrorAction {
+  url: string;
+  text: string;
+  icon: {
+    name: string;
+    family?: string;
+  }
+}
+
 export interface ErrorViewContext {
   title: string;
   message: string;
   details?: string;
-  enableReport?: boolean;
+  actions?: ErrorAction[];
 }
