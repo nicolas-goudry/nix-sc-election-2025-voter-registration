@@ -1,3 +1,5 @@
+import { UserEligibility } from '../plugins/app/registration-manager'
+
 export interface HomeViewContext {
   periods: {
     registration: string;
@@ -8,6 +10,13 @@ export interface HomeViewContext {
     merges: string;
     period: string;
   },
+}
+
+export interface RegisterViewContext {
+  electionForkSourceRepo?: string;
+  eligibility?: UserEligibility;
+  installApp?: string;
+  isAppInstalled?: boolean,
 }
 
 interface ErrorAction {

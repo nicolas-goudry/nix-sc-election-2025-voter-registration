@@ -1,5 +1,5 @@
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
-import { ErrorViewContext } from '../../schemas/view-context'
+import { ErrorViewContext, RegisterViewContext } from '../../schemas/view-context'
 
 const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) {
   fastify.get('/', async function (request, reply) {
@@ -14,7 +14,7 @@ const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) 
     const eligibility = await fastify.registrationManager.getEligibility(request, reply)
     const isAppInstalled = await fastify.registrationManager.isAppInstalled(request)
 
-    return reply.viewAsync('register', {
+    return reply.viewAsync<RegisterViewContext>('register', {
       eligibility,
       isAppInstalled,
       installApp: `${fastify.config.GH_APP_INSTALL}&target_id=${user.id}`,
