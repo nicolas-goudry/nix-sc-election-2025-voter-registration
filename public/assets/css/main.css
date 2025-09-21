@@ -174,16 +174,16 @@ section.error h1 {
   margin-block-end: var(--wa-space-3xl);
 }
 
-section.error .actions {
-  margin-block-start: var(--wa-space-3xl);
-}
-
 section.error a,
 section.error a:visited,
 section.error a:focus,
 section.error a:hover {
   color: var(--wa-colo-text-quiet);
   font-size: var(--wa-font-size-xs);
+}
+
+section.error .actions {
+  margin-block-start: var(--wa-space-3xl);
 }
 
 /* Hero section styles */
