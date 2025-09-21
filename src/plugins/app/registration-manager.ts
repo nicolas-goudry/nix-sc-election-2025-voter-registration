@@ -43,15 +43,10 @@ function createRegistrationManager (fastify: FastifyInstance) {
         request.log.error(error, 'Failed to get CSV file content')
 
         if (error instanceof Error) {
-          return reply.viewAsync('register', {
-            error: {
-              title: 'Oops!',
-              message: `There was an error while retrieving the list of eligible voters: ${error.message}.`,
-            },
-          })
+          return reply.internalServerError(`There was an error while retrieving the list of eligible voters: ${error.message}.`)
         }
 
-        throw error
+        return reply.internalServerError()
       }
 
       request.log.debug('Parse CSV content')
@@ -64,23 +59,15 @@ function createRegistrationManager (fastify: FastifyInstance) {
       request.log.info({ entries: data.length, errors, meta }, 'Successfully parsed eligible voters CSV file')
 
       if (data.length === 0) {
-        return reply.viewAsync('register', {
-          error: {
-            title: 'Oops!',
-            message: 'There was an error while parsing the list of eligible voters.',
-          },
-        })
+        return reply.internalServerError('There was an error while parsing the list of eligible voters.')
       }
 
       const user = request.session.get('user')
 
       if (!user) {
-        return reply.viewAsync('register', {
-          error: {
-            title: 'Uh oh…',
-            message: "Somehow you're not a user? Wait, what?",
-          },
-        })
+        request.log.error('No user found in session')
+
+        return reply.internalServerError()
       }
 
       const voter = data.find(({ githubId }) => githubId === user.id)
