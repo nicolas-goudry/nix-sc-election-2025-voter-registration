@@ -9,7 +9,13 @@ declare module 'fastify' {
   }
 }
 
-type EligibleVoter = {
+export interface UserEligibility {
+  email?: string;
+  isEligible: boolean;
+  isRegistered?: boolean;
+}
+
+interface EligibleVoter {
   githubId: number;
   githubUsername: string;
   email?: string;
@@ -17,7 +23,7 @@ type EligibleVoter = {
 
 function createRegistrationManager (fastify: FastifyInstance) {
   return {
-    async getEligibility (request: FastifyRequest, reply: FastifyReply) {
+    async getEligibility (request: FastifyRequest, reply: FastifyReply): Promise<UserEligibility> {
       const token = request.session.get('token')
 
       if (!token) {
