@@ -1,4 +1,4 @@
-import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
+import { FastifyPluginAsyncTypebox, Type } from '@fastify/type-provider-typebox'
 import { ErrorViewContext, RegisterViewContext } from '../../schemas/view-context'
 
 const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) {
@@ -20,6 +20,20 @@ const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) 
       installApp: `${fastify.config.GH_APP_INSTALL}&target_id=${user.id}`,
       electionForkSourceRepo: 'https://github.com/nicolas-goudry/SC-election-2025',
     })
+  })
+
+  fastify.post('/', {
+    schema: {
+      body: Type.Object({
+        email: Type.String(),
+      }),
+    },
+  }, async function (request, reply) {
+    if (!request.body?.email) {
+      return reply.badRequest('Email is required')
+    }
+
+    return 'TODO'
   })
 
   fastify.setErrorHandler((error, request, reply) => {
