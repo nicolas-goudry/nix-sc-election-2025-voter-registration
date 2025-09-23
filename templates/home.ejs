@@ -1,4 +1,4 @@
-<%- include('parts/hero'); %>
+<%- include('partials/hero'); %>
 <section class="cta wa-stack wa-align-items-center">
 <% if (locals.user) { %>
   <h1 class="wa-heading-xs">Signed in as <%= user.username %></h1>
@@ -132,57 +132,4 @@
     </div>
   </wa-card>
 </section>
-<section class="faq">
-  <div class="wa-stack">
-    <h1 class="title wa-heading-l">Frequently Asked Questions</h1>
-    <div class="wa-grid">
-      <wa-card>
-        <div class="wa-stack wa-gap-s">
-          <h1 class="wa-heading-s">
-            What if I'm not eligible to vote?
-          </h1>
-          <p>
-            If you're not on the eligible voters list, the system will
-            inform you immediately after authentication. Only
-            contributors who meet the contribution requirements can
-            register.
-          </p>
-        </div>
-      </wa-card>
-      <wa-card>
-        <div class="wa-stack wa-gap-s">
-          <h1 class="wa-heading-s">Can I update my email address?</h1>
-          <p>
-            Yes! If you already have an email registered, you can update
-            it by going through the registration process again. A new
-            pull request will be created with your updated information.
-          </p>
-        </div>
-      </wa-card>
-      <wa-card>
-        <div class="wa-stack wa-gap-s">
-          <h1 class="wa-heading-s">
-            What GitHub permissions do you need?
-          </h1>
-          <p>
-            We only request access to your public profile information
-            and the ability to create repositories, write code and open
-            pull requests on your behalf for the registration process.
-          </p>
-        </div>
-      </wa-card>
-      <wa-card>
-        <div class="wa-stack wa-gap-s">
-          <h1 class="wa-heading-s">
-            How do I know my registration was successful?
-          </h1>
-          <p>
-            After registration, you'll receive a direct link to the pull
-            request created on your behalf. You can track its status and
-            see when it gets merged into the official registry.
-          </p>
-        </div>
-      </wa-card>
-    </div>
-  </div>
-</section>
+<%- include('partials/faq') %>

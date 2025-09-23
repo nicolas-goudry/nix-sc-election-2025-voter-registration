@@ -1,4 +1,4 @@
-<%- include('parts/hero'); %>
+<%- include('partials/hero'); %>
 <section class="registration wa-stack wa-align-items-center">
   <% if (!locals.eligibility?.isEligible) { %>
   <wa-callout variant="danger">
@@ -75,4 +75,5 @@
     <%_ } _%>
   <% } %>
 </section>
+<%- include('partials/faq') %>
 <script type="module" src="/assets/js/registration.js"></script>
