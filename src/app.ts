@@ -97,6 +97,17 @@ export async function serviceApp (
 
       if (error.statusCode < 500 && error.message && errorContext) {
         errorContext.details = error.message
+
+        if (error.statusCode === 401) {
+          errorContext.actions = [{
+            url: '/auth',
+            text: 'Sign in',
+            icon: {
+              name: 'github',
+              family: 'brands',
+            },
+          }]
+        }
       }
     }
 
