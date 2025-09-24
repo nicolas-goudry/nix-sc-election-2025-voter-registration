@@ -37,7 +37,7 @@ const plugin: FastifyPluginAsyncTypebox = async function auth (fastify) {
     const user = await fastify.sessionManager.getUser(request)
 
     if (!user) {
-      return reply.unauthorized()
+      return reply.unauthorized('Authentication failed.')
     }
 
     request.session.set('user', user)

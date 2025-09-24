@@ -12,7 +12,7 @@ export default async function (fastify: FastifyInstance) {
     // if user is signed in or not.
     // However, we do care about having the session validated and refreshed on those routes too.
     if (!(await fastify.sessionManager.autoSession(request, reply)) && !['/', '/auth'].includes(request.url)) {
-      return reply.unauthorized()
+      return reply.unauthorized('You must be authenticated to access this page.')
     }
   })
 }
