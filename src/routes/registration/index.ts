@@ -33,18 +33,31 @@ const plugin: FastifyPluginAsyncTypebox = async function registration (fastify) 
   })
 
   fastify.setErrorHandler((error, request, reply) => {
+    const actions = []
+
+    if (error.statusCode !== 401) {
+      actions.push({
+        url: '/registration',
+        text: 'Try to register again',
+        icon: {
+          name: 'rotate-right',
+        },
+      })
+    } else {
+      actions.push({
+        url: '/auth',
+        text: 'Sign in',
+        icon: {
+          name: 'github',
+          family: 'brands',
+        },
+      })
+    }
+
     return reply.viewAsync<ErrorViewContext>('error', {
       title: 'Uh oh! Something went wrong.',
       message: error.message,
-      actions: [
-        {
-          url: '/registration',
-          text: 'Try to register again',
-          icon: {
-            name: 'rotate-right',
-          },
-        },
-      ],
+      actions,
     })
   })
 }
